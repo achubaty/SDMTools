@@ -20,9 +20,9 @@ double a = 6378137, b = 6356752.3142,  f = 1/298.257223563;  // WGS-84 ellipsiod
 
 SEXP Dest(SEXP latitude1, SEXP longitude1, SEXP bearing, SEXP distance) {
 	//bring in the key data
-	latitude1 = coerceVector(latitude1, REALSXP); double lat1 = REAL(latitude1)[0] * (PI/180); //first lat in radians
-	longitude1 = coerceVector(longitude1, REALSXP); double lon1 = REAL(longitude1)[0] * (PI/180); //first lon in radians
-	bearing = coerceVector(bearing, REALSXP); double alpha1 = REAL(bearing)[0] * (PI/180); //bearing in radians
+	latitude1 = coerceVector(latitude1, REALSXP); double lat1 = REAL(latitude1)[0] * (M_PI/180); //first lat in radians
+	longitude1 = coerceVector(longitude1, REALSXP); double lon1 = REAL(longitude1)[0] * (M_PI/180); //first lon in radians
+	bearing = coerceVector(bearing, REALSXP); double alpha1 = REAL(bearing)[0] * (M_PI/180); //bearing in radians
 	distance = coerceVector(distance, REALSXP); double s = REAL(distance)[0]; //distance in m
 	
 	//define all the variables
@@ -43,7 +43,7 @@ SEXP Dest(SEXP latitude1, SEXP longitude1, SEXP bearing, SEXP distance) {
 	A = 1 + uSq/16384*(4096+uSq*(-768+uSq*(320-175*uSq)));
 	B = uSq/1024 * (256+uSq*(-128+uSq*(74-47*uSq)));
 
-	sigma = s / (b*A), sigmaP = 2*PI;
+	sigma = s / (b*A), sigmaP = 2*M_PI;
 	cos2SigmaM = cos(2*sigma1 + sigma);
 	sinSigma = sin(sigma);
 	cosSigma = cos(sigma);
@@ -65,9 +65,9 @@ SEXP Dest(SEXP latitude1, SEXP longitude1, SEXP bearing, SEXP distance) {
 	revAz = atan2(sinAlpha, -tmp);  // final bearing
 	
 	SEXP ans; PROTECT(ans = allocVector(REALSXP, 3));
-	REAL(ans)[0] = lat2 * (180 / PI);
-	REAL(ans)[1] = lon1 * (180 / PI) + L * (180 / PI);
-	REAL(ans)[2] = revAz * (180 / PI);
+	REAL(ans)[0] = lat2 * (180 / M_PI);
+	REAL(ans)[1] = lon1 * (180 / M_PI) + L * (180 / M_PI);
+	REAL(ans)[2] = revAz * (180 / M_PI);
 	
 	UNPROTECT(1);
 	return(ans);
@@ -101,9 +101,9 @@ SEXP Dist(SEXP latitude1, SEXP longitude1, SEXP latitude2, SEXP longitude2) {
 		if (lat1[ii] == lat2[ii] && lon1[ii] == lon2[ii]) {
 			out[ii] = 0;
 		} else {			
-			double L = (lon2[ii]-lon1[ii]) * (PI/180);
-			double U1 = atan((1-f) * tan(lat1[ii] * (PI/180)));
-			double U2 = atan((1-f) * tan(lat2[ii] * (PI/180)));
+			double L = (lon2[ii]-lon1[ii]) * (M_PI/180);
+			double U1 = atan((1-f) * tan(lat1[ii] * (M_PI/180)));
+			double U2 = atan((1-f) * tan(lat2[ii] * (M_PI/180)));
 			double sinU1 = sin(U1), cosU1 = cos(U1);
 			double sinU2 = sin(U2), cosU2 = cos(U2);
 		  

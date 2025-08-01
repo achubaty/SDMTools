@@ -2,13 +2,20 @@ Package: SDMTools
 Type: Package
 Title: Species Distribution Modelling Tools: Tools for processing data
         associated with species distribution modelling exercises
-Version: 1.1-221.2
-Date: 2014-08-05
+Version: 1.1-221.3
+Date: 2025-07-31
 Author: Jeremy VanDerWal, Lorena Falconi, Stephanie Januchowski, Luke Shoo and
     Collin Storlie
 Maintainer: ORPHANED
-Imports: R.utils
-Suggests: adehabitat, raster, sp
+Imports: 
+    graphics,
+    grDevices,
+    R.utils,
+    raster,
+    sp,
+    stats
+Suggests: 
+    adehabitatMA
 Description: This packages provides a set of tools for post processing the
     outcomes of species distribution modeling exercises. It includes novel
     methods for comparing models and tracking changes in distributions through
@@ -27,3 +34,6 @@ Date/Publication: 2019-11-30 06:55:27 UTC
 X-CRAN-Original-Maintainer: Jeremy VanDerWal <jjvanderwal@gmail.com>
 X-CRAN-Comment: Orphaned and corrected on 2019-04-18 as check problems
         were not corrected in time.
+RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
